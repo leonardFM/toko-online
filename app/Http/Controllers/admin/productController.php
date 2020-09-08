@@ -41,7 +41,18 @@ class productController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image_product = $request->file('image')->getClientOriginalName();
+        $request->file('image')->move('product_image', $image_product);
+
+        Product::create([
+            'category_id' => $request->category_id,
+            'name_product' => $request->name_product,
+            'image' => $image_product,
+            'description' => $request->description,
+            'price' => $request->price
+        ]);
+
+        return redirect('/admin/product');
     }
 
     /**
@@ -52,7 +63,8 @@ class productController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $title = "Detail product";
+        return view('admin.product.detail', compact('title', 'product'));
     }
 
     /**
@@ -63,7 +75,9 @@ class productController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $title = "Edit Product";
+        $category = Category::all();
+        return view('admin.product.edit', compact('product', 'title', 'category'));
     }
 
     /**
@@ -75,7 +89,30 @@ class productController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+
+        if ($request->image != 0) {
+
+            $image_product = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move('product_image', $image_product);
+
+            $data = [
+                'category_id' => $request->category_id,
+                'name_product' => $request->name_product,
+                'image' => $image_product,
+                'description' => $request->description,
+                'price' => $request->price
+            ];
+        } else {
+            $data = [
+                'category_id' => $request->category_id,
+                'name_product' => $request->name_product,
+                'description' => $request->description,
+                'price' => $request->price
+            ];
+        }
+
+        $product->update($data);
+        return redirect('/admin/product');
     }
 
     /**

@@ -28,8 +28,9 @@ Route::get('/admin/category_delete', 'admin\categoryController@destroy');
 Route::get('/admin/product', 'admin\productController@index');
 Route::get('/admin/product_add', 'admin\productController@create');
 Route::post('/admin/product_add', 'admin\productController@store');
-Route::get('/admin/product_edit', 'admin\productController@edit');
+Route::get('/admin/product_edit/{product}', 'admin\productController@edit');
 Route::put('/admin/product_edit/{product}', 'admin\productController@update');
+Route::get('/admin/product_detail/{product}', 'admin\productController@show');
 Route::get('/admin/product_delete', 'admin\productController@destroy');
 
 Route::get('/admin/city', 'admin\cityController@index');

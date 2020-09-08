@@ -24,16 +24,18 @@
                         Pilih 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">edit</a>
-                      <a class="dropdown-item" href="#">detail</a>
+                      <a class="dropdown-item" href="/admin/product_edit/{{ $item->id }}">edit</a>
+                      <a class="dropdown-item" href="/admin/product_detail/{{ $item->id }}">detail</a>
                       <a class="dropdown-item" href="#">hapus</a>
                     </div>
                   </div>
             </td>
-            <td>{{ $item->image }}</td>
-            <td>{{ $item->category_id }}</td>
+            <td>
+                <img src="{{ asset('product_image/'. $item->image) }}" style="width: 50px" alt="">
+            </td>
+            <td>{{ $item->category->category }}</td>
             <td>{{ $item->name_product }}</td>
-            <td>{{ $item->description }}</td>
+            <td>{{ Str::limit($item->description, '50') }}</td>
             <td>{{ $item->price }}</td>
         </tr>
         @endforeach
